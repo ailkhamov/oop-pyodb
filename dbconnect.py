@@ -15,6 +15,36 @@ conn_northwind = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='
 
 print(conn_northwind)
 
-# Create a cursor
+# Create a curso - in order to execute sql quires we need to create a curser
+# Allows us to execute readonly queries of our database
+cursor = conn_northwind.cursor()
 
-#
+cursor.execute("SELECT * FROM Customers;")
+# Fetch rows from cursor - Fetch one
+row = cursor.fetchone()
+
+print(row)
+# Fetch all
+# This is bad MM'kay
+# We dont' you this mm'kay...
+rows = cursor.execute("SELECT * FROM Customers;").fetchall()
+for row in rows:
+    print(row)
+
+# Fetch some data using for loops
+rows = cursor.execute("SELECT * FROM Products").fetchall()
+count = 0
+#for row in rows:
+  #  print(row.UnitPrice) # We can access the column of a specific record
+
+# However, this is dangerous as we said
+# Because we can clog our machine with too much date
+    # We can use While Loop to be more effiecent
+
+rows = cursor.execute('SELECT *  FROM Products')
+
+while True:
+    record = rows.fetchone()
+    if record is None:
+        break
+    print(record.UnitPrice)
